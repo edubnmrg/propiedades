@@ -5,7 +5,8 @@ var cheerio=require(`cheerio`);
 var app=express();
 
 app.get(`/scrape`,function(req,res){
-  var url = 'http://www.imdb.com/title/tt3691740/';
+  //tt3691740
+  var url = 'http://www.imdb.com/title/' + req.query.movie_id;
   var movie_json = {}
   request(url, function(error, response, html){
     if(!error){
@@ -18,7 +19,6 @@ app.get(`/scrape`,function(req,res){
             var title, release, rating;
             var movie_json = { title : "", release : "", rating : ""};
             $('.title_wrapper h1').filter(function(){
-                console.log("hola");
                 var data = $(this);
                 movie_json.title = $(this).text();
                 //movie_json.release = release;
