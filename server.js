@@ -5,7 +5,8 @@ var cheerio=require(`cheerio`);
 var app=express();
 
 app.get(`/scrape`,function(req,res){
-  url = 'http://www.imdb.com/title/tt1229340/';
+  var url = 'http://www.imdb.com/title/tt3691740/';
+  var movie_json = {}
   request(url, function(error, response, html){
     if(!error){
             // Next, we'll utilize the cheerio library on the returned html which will essentially give us jQuery functionality
@@ -15,7 +16,7 @@ app.get(`/scrape`,function(req,res){
             // Finally, we'll define the variables we're going to capture
 
             var title, release, rating;
-            var json = { title : "", release : "", rating : ""};
+            var movie_json = { title : "", release : "", rating : ""};
             $('.header').filter(function(){
 
            // Let's store the data we filter into a variable so we can easily see what's going on.
@@ -29,8 +30,8 @@ app.get(`/scrape`,function(req,res){
                 release = data.children().last().children().text();
            // Once we have our title, we'll store it to the our json object.
 
-                json.title = title;
-                json.release = release;
+                movie_json.title = title;
+                movie_json.release = release;
             })
             $('.star-box-giga-star').filter(function(){
                 var data = $(this);
@@ -40,12 +41,12 @@ app.get(`/scrape`,function(req,res){
 
                 rating = data.text();
 
-                json.rating = rating;
+                movie_json.rating = rating;
             })
         }
   })
-}
-)
+  res.send('Finished Request: ' + JSON.stringify(movie_json) = '. If its empty, we have failed to find the desired information.')
+})
 app.listen(`8081`);
 console.log(`magic happens on port 8081`);
 exports=module.exports=app;
