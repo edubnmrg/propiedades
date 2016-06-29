@@ -17,21 +17,11 @@ app.get(`/scrape`,function(req,res){
 
             var title, release, rating;
             var movie_json = { title : "", release : "", rating : ""};
-            $('.header').filter(function(){
-
-           // Let's store the data we filter into a variable so we can easily see what's going on.
-
+            $('.title_wrapper h1').filter(function(){
+                console.log("hola");
                 var data = $(this);
-
-           // In examining the DOM we notice that the title rests within the first child element of the header tag.
-           // Utilizing jQuery we can easily navigate and get the text by writing the following code:
-
-                title = data.children().first().text();
-                release = data.children().last().children().text();
-           // Once we have our title, we'll store it to the our json object.
-
-                movie_json.title = title;
-                movie_json.release = release;
+                movie_json.title = $(this).text();
+                //movie_json.release = release;
             })
             $('.star-box-giga-star').filter(function(){
                 var data = $(this);
@@ -44,8 +34,8 @@ app.get(`/scrape`,function(req,res){
                 movie_json.rating = rating;
             })
         }
+        res.send('Finished Request: ' + JSON.stringify(movie_json) + '. If its empty, we have failed to find the desired information.')
   })
-  res.send('Finished Request: ' + JSON.stringify(movie_json) + '. If its empty, we have failed to find the desired information.')
 })
 app.listen(`8081`);
 console.log(`magic happens on port 8081`);
