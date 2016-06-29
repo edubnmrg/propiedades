@@ -45,7 +45,7 @@ app.get(`/scrape`,function(req,res){
             })
         }
   })
-  res.send('Finished Request: ' + JSON.stringify(movie_json) = '. If its empty, we have failed to find the desired information.')
+  res.send('Finished Request: ' + JSON.stringify(movie_json) + '. If its empty, we have failed to find the desired information.')
 })
 app.listen(`8081`);
 console.log(`magic happens on port 8081`);
