@@ -38,12 +38,12 @@ app.get(`/scrape`,function(req,res){
   })
 })
 
-app.get(`/zonaprop`,function(req,res){
+app.get(`/orion`,function(req,res){
   //tt3691740
   url = 'http://www.zonaprop.com.ar/propiedades/av-callao-2000-recoleta-capital-federal-31744053.html'
-  if(req.query.zonaprop_url){
+  if(req.query.query_url){
 
-    url = req.query.zonaprop_url
+    url = req.query.query_url
     request(url, function(error, response, html){
         if(!error){
 
@@ -51,17 +51,23 @@ app.get(`/zonaprop`,function(req,res){
 
             var fotos, title, release, rating, precio, expensas, descripcion, titulo, datos, imagen;
 
+            var contenedor_begin = "<div class='container' style='margin:-8px;background: #eee'><div class='header' style='height:90px;background:rgba(0,0,0,0.6)' ><img style='position:absolute;top:15px;left:20px;display:none;' width='201' height='75' src='http://orionpropiedades.com/images/logoOrionProp.png'/></div>"
+            var contenedor_end = "</div>"
+
+            var pagina_begin = "<div style='width:80%;background:white;box-shadow:0px 0px 2px #222222;border: 1px solid #e1e1e1;margin:40px auto;padding:40px;'>";
+            var pagina_end = "</div>";
+
             titulo = "<h1>" + $("h1").text() + "</h1>"
             precio = "<h2> Precio de Venta: " + $(".venta").text() + "</h2>"
             descripcion = "<p>" + $("#id-descipcion-aviso").text().trim() + "</p>"
-            datos = $(".aviso-datos ul").html()
+            datos = "<ul>" + $(".aviso-datos ul").html() + "</ul>";
             var imagenes_html = "";
 
             $(".rsMainSlideImage").each(function(i, elem){
-                imagenes_html = imagenes_html +  "<img style='display:inline-block; margin: 10px' width=300 src=" + $(elem).attr("href") + ">"
+                imagenes_html = imagenes_html +  "<img style='vertical-align:top;display:inline-block; margin: 10px' width=300 src=" + $(elem).attr("href") + ">"
             })
 
-            texto = titulo + descripcion + precio + datos + imagenes_html
+            texto = contenedor_begin + pagina_begin + titulo + descripcion + precio + datos + imagenes_html + pagina_end + contenedor_end;
 
         }
         //res.send(html)
@@ -69,7 +75,7 @@ app.get(`/zonaprop`,function(req,res){
     })
   } else {
     var style = "width: 300px;height: 40px;line-height: 40px;font-size: 16px;padding: 10px;"
-    res.send("<h1>Pegar url de zona prop</h1><form method=GET action='/zonaprop'><input style='"+style+"' type='text' name='zonaprop_url'></form>")
+    res.send("<h1>Pegar url</h1><form method=GET action='/orion'><input style='"+style+"' type='text' name='query_url'></form>")
   }
 })
 
