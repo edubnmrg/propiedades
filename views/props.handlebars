@@ -1,0 +1,20 @@
+
+  <h1> {{titulo}}</h1>
+  <h2> Precio de Venta: {{precio}} </h2>
+  <p> {{descripcion1}} </p>
+  <ul>
+    {{#each datos}}
+    <li>
+			{{this.texto}}
+
+		</li>
+    {{/each}}
+  </ul>
+  <ul>
+    {{#each imagenes_arr}}
+
+        <img style='vertical-align:top;display:inline-block; margin: 10px;' width='300' src={{this.imagen}} />
+
+    {{/each}}
+  </ul>
+</div>

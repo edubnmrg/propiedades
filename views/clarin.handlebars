@@ -1,0 +1,12 @@
+<div class='header' style="height:100px;padding:10px;background-color:yellowgreen;border:10px outset yellowgreen;">
+
+<h1>{{encabezamiento}}</h1>
+</div >
+<ul style="background-color:yellowgreen;">
+  {{#each titulos}}
+    <li>
+      <h1>{{ this.title }}</h1>
+      <p>{{ this.description }}</p>
+    </li>
+  {{/each}}
+</ul>
