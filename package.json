@@ -1,17 +1,17 @@
 {
-"name"  :"node-web-scrape",
-"version" :"0.0.1",
-"description" :"Scrape the web",
-"main"  :"server-js",
-"author"  : "edu",
-"dependencies"  :{
-  "express" :"latest",
-  "request" :"latest",
-  "cheerio" :"latest",
-  "express-handlebars":"latest",
-  "sqlite3":"latest"
- },
-    "scripts": {
-        "start": "node server.js"
-    }
+  "name": "node-web-scrape",
+  "version": "0.0.2",
+  "description": "Scrape the web",
+  "main": "server-js",
+  "author": "edu",
+  "dependencies": {
+    "cheerio": "latest",
+    "express": "latest",
+    "express-handlebars": "latest",
+    "request": "latest",
+    "cookies":"latest"
+  },
+  "scripts": {
+    "start": "node server.js"
+  }
 }
