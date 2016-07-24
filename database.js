@@ -24,7 +24,8 @@ Database.prototype.read = function(callback){
 }
 Database.prototype.write = function(item){
   var fs = require('fs');
-  fs.appendFile("./historial.txt", (item.prop + "," + item.numero), function (err) {
+  console.log("modulo "+item);
+  fs.appendFile("./historial.txt", (item), function (err) {
 
 
     console.log("The item was saved!");
@@ -37,10 +38,10 @@ Database.prototype.write = function(item){
 Database.prototype.flush = function(){
 
 }
-var db = new Database();
-
-db.read(function(res){ console.log(res)})
-db.write({ prop: "cabildo", numero: "5"})
-db.read(function(res){ console.log(res)})
+// var db = new Database();
+//
+// db.read(function(res){ console.log(res)})
+// db.write({ prop: "cabildo", numero: "5"})
+//db.read(function(res){ console.log(res)})
 
 module.exports.instance = new Database();

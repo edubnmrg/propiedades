@@ -7,8 +7,14 @@ var exphbs  = require('express-handlebars');
 var auth = require('basic-auth');
 var cookieParser = require('cookie-parser');
 var database = require('./database').instance;
+var mysql      = require('mysql');
+var connection = mysql.createConnection({
+  host     : 'localhost',
+  user     : 'root',
+  password : 'sqlben',
+  database : 'new_schema'
+});
 
-console.log(database.read(function(visitas){ console.log(visitas)}));
 
 app.use(cookieParser());
 app.engine('handlebars', exphbs({defaultLayout: 'main'}));
@@ -41,6 +47,7 @@ app.get(`/`,auth,function(req,res){
 
   res.cookie("agente", true);
   database.read(function(visitas){
+    console.log("carga "+visitas.length);
     res.render('props_form',{visitas});
   })
 
@@ -52,40 +59,35 @@ app.get(`/`,auth,function(req,res){
       request(url, function(error, response, html){
 
           if(!error){
+            var agent = (req.cookies.agente == "true")
             database.read(function(visitas){
+
               //find record
               //if not record: database.write(record)
               //if not record:
-            })
+              var found = false;
+              console.log("dimension "+visitas.length);
+              console.log(url);
+              for (var i = 0; i < visitas.length && !found; i++) {
+                console.log(visitas[i].texto +" "+ url+" "+(visitas[i].texto === url))
+                if (visitas[i].texto === url) {
 
-            var found = false;
-            console.log("dimension "+visitas.length);
-            console.log(url);
-            for (var i = 0; i < visitas.length && !found; i++) {
-              if (visitas[i] === url) {
-                visitas[i].numero++
-                found = true;
+                  visitas[i].numero++
+                  found = true;
+                }
               }
-            }
-            if(!found)  {
-              database.write('./historial.txt',(url+","+"0"+"\n"),function(err){
-                           if (err) { throw err; }
-                           console.log('wrote ' + written + ' bytes');
-                         });
-              };
-            }else{
-                fs.unlinkSync('./historial.txt');
-                 for (var i = 0, len = visitas.length; i < len; i++) {
-                   database.write('./historial.txt',visitas[i].texto+","+visitas[i].numero+"\n",function(err){
-                                if (err) { throw err; }
-                                console.log('wrote ' + written + ' bytes');
-                              });
+              if(!found)  {
+                database.write(url+","+"0"+"\n")
+              }else{
+                if(!agent){
+                  fs.unlinkSync('./historial.txt');
+                   for (var i = 0, len = visitas.length; i < len; i++) {
+                     database.write(visitas[i].texto+","+visitas[i].numero+"\n");
+                   };
+                 }
 
-                 };
-
-
-            }
-
+              }
+            });
               var $ = cheerio.load(html);
 
               var precio, descripcion, titulo, datos;
@@ -101,13 +103,13 @@ app.get(`/`,auth,function(req,res){
               $(".rsMainSlideImage").each(function(i, elem){
                   imagenes_arr.push({imagen:$(elem).attr("href")})
               })
-
-          });
+          };
           //console.error(titulo, precio, descripcion, datos, imagenes_arr)
-          var agent = (req.cookies.agente == "true")
+
           res.render('props',{titulo,precio,descripcion,datos,imagenes_arr,agent});
-      }
-    });
+      });
+    }
+  });
   // app.post('/boton', function(sReq, sRes){
   //   console.log(sReq.query.cliente);
   // });

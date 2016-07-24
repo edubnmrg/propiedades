@@ -9,7 +9,8 @@
     "express": "latest",
     "express-handlebars": "latest",
     "request": "latest",
-    "cookies":"latest"
+    "cookies":"latest",
+    "mysql":"latest"
   },
   "scripts": {
     "start": "node server.js"
