@@ -42,6 +42,13 @@ var auth = function (req, res, next) {
     return unauthorized(res);
   };
 };
+connection.connect(function(err){
+if(!err) {
+    console.log("Conectado a Base de Datos ... nn");
+} else {
+    console.log("Error conectando a Base de Datos ... nn");
+}
+});
 
 app.get(`/`,auth,function(req,res){
 
@@ -71,19 +78,31 @@ app.get(`/`,auth,function(req,res){
               for (var i = 0; i < visitas.length && !found; i++) {
                 console.log(visitas[i].texto +" "+ url+" "+(visitas[i].texto === url))
                 if (visitas[i].texto === url) {
-
                   visitas[i].numero++
                   found = true;
                 }
               }
               if(!found)  {
-                database.write(url+","+"0"+"\n")
+                database.write(url+","+"0"+"\n");
+                var q="insert into consultas(id,url,agente_id,cliente_id) values(default," + url +",4,1"
+                connection.query(q, function(err, rows, fields) {
+                  if (!err)
+                    console.log('Se agrego  ', rows, 'fila(s)');
+                  else
+                    console.log('Error insertando url.');
+                });
               }else{
                 if(!agent){
                   fs.unlinkSync('./historial.txt');
                    for (var i = 0, len = visitas.length; i < len; i++) {
                      database.write(visitas[i].texto+","+visitas[i].numero+"\n");
                    };
+                   connection.query(, function(err, rows, fields) {
+                     if (!err)
+                       console.log('Se agrego  ', rows, 'fila(s)');
+                     else
+                       console.log('Error insertando url.');
+                   });
                  }
 
               }
