@@ -84,7 +84,7 @@ app.get(`/`,auth,function(req,res){
               }
               if(!found)  {
                 database.write(url+","+"0"+"\n");
-                var q="insert into consultas(id,url,agente_id,cliente_id) values(default," + url +",4,1"
+                var q="insert into consultas(id,url,agente_id,cliente_id,visitas) values(default," + url +",4,1,default"
                 connection.query(q, function(err, rows, fields) {
                   if (!err)
                     console.log('Se agrego  ', rows, 'fila(s)');
@@ -97,11 +97,11 @@ app.get(`/`,auth,function(req,res){
                    for (var i = 0, len = visitas.length; i < len; i++) {
                      database.write(visitas[i].texto+","+visitas[i].numero+"\n");
                    };
-                   connection.query(, function(err, rows, fields) {
+                   connection.query("update consultas set visitas=visitas+1 where url='"+url+"'", function(err, rows, fields) {
                      if (!err)
-                       console.log('Se agrego  ', rows, 'fila(s)');
+                       console.log('Se modifico  ', rows, 'fila(s)');
                      else
-                       console.log('Error insertando url.');
+                       console.log('Error incrementando visitas.');
                    });
                  }
 
@@ -132,7 +132,14 @@ app.get(`/`,auth,function(req,res){
   // app.post('/boton', function(sReq, sRes){
   //   console.log(sReq.query.cliente);
   // });
-
+  app.get(`/clientes`,function(req,res){
+    connection.query('SELECT * from clientes', function(err, rows, fields) {
+    if (!err)
+      res.render('clientes',{rows});
+    else
+      console.log('Error while performing Query.');
+    });
+  });
 app.listen(`8081`);
 console.log(`Server is up and running`);
 exports=module.exports=app;
