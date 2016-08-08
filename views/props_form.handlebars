@@ -1,36 +1,53 @@
 
-<h1>Pegar url</h1>
-<form method=GET action='/props'>
-<input class='prop-input' type='text' name='query_url'>
-</form>
-<div class='marco'>
-  <table border="1">
-    <tr>
-      <th>Propiedad</th>
-      <th>Visitas</th>
-    </tr>
+
+<div class='marco50'>
+  <div >
+    <table>
+      <tr>
+        <td>
+          <h1>Pegar url: </h1>
+        </td>
+        <td>
+          <form method=GET action='/props'>
+          <input class='prop-input' type='text' name='query_url'>
+          </form>
+        </td>
+      </tr>
+    </table>
+  </div>
 
 
-    {{#each visitas}}
-    <tr>
-      <td>
-        <a href=/props?query_url={{this.texto}}>{{this.texto}}</a>
-      </td>
-      <td>
-        <p>{{this.numero}}</p>
-      </td>
-    <td>
 
-    </td>
-		</tr>
-    {{/each}}
-  </table>
+  <div class='datagrid_blue'>
+    <table >
+      <thead>
+        <tr>
+          <th>Propiedad</th>
+          <th>Visitas de Clientes</th>
+        </tr>
+
+      </thead>
+      <tbody>
+        {{#each visitas}}
+          <tr>
+            <td>
+              <a href=/props?query_url={{this.texto}}>{{this.texto}}</a>
+            </td>
+            <td style="text-align: center;">
+              <p>{{this.numero}}</p>
+            </td>
+          </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  </div>
 </div>
+
 <style>
   .prop-input {
     width: 300px;
-    height: 40px;
-    line-height: 40px;
+    height: 30px;
+    line-height: 30px;
     font-size: 16px;
     padding: 10px;
   }

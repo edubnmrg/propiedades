@@ -14,7 +14,7 @@ Database.prototype.read = function(callback){
   lineReader.on('line', function (line) {
     var partes=[];
     partes=line.split(",");
-    console.log(partes[0]+partes[1]);
+    //console.log(partes[0]+partes[1]);
     visitas.push({texto: partes[0],numero: partes[1]});
   });
   lineReader.on('close',function(){
@@ -24,11 +24,11 @@ Database.prototype.read = function(callback){
 }
 Database.prototype.write = function(item){
   var fs = require('fs');
-  console.log("modulo "+item);
+  //console.log("modulo "+item);
   fs.appendFile("./historial.txt", (item), function (err) {
 
 
-    console.log("The item was saved!");
+    //console.log("The item was saved!");
   });
 }
 

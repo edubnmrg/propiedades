@@ -16,29 +16,127 @@
     background:white;
     box-shadow:0px 0px 2px #222222;
     border: 1px solid #e1e1e1;
-    margin:40px auto;
+    margin:0px auto;
     padding:40px;
   }
 </style>
+<style>
+  .marco50 {
+    width:50%;
+    /*background:#249DB7;*/
+    box-shadow:0px 0px 2px #222222;
+    border: 1px solid #006699;
+    margin:0px auto;
+    padding:40px;
+  }
+</style>
+<style>
+.datagrid table {
+  border-collapse: collapse;
+  text-align: left; width: 100%;
+                }
+   .datagrid {
+     font: normal 12px/150% Arial, Helvetica, sans-serif;
+     background: #fff;
+     overflow: hidden;
+     border: 1px solid #991821;
+     -webkit-border-radius: 3px; -moz-border-radius: 3px; border-radius: 3px;
+              }
+     .datagrid table td, .datagrid table th {
+       padding: 3px 10px;
+       }
+      .datagrid table thead th {
+        background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #991821), color-stop(1, #80141C) );
+        background:-moz-linear-gradient( center top, #991821 5%, #80141C 100% );
+        filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#991821', endColorstr='#80141C');
+        background-color:#991821; color:#FFFFFF; font-size: 15px; font-weight: bold; border-left: 1px solid #B01C26;
+          }
+      .datagrid table thead th:first-child { border: none; }
+      .datagrid table tbody td { color: #80141C; border-left: 1px solid #F7CDCD;font-size: 12px;font-weight: normal; }
+      .datagrid table tbody .alt td { background: #F7CDCD; color: #80141C; }
+      .datagrid table tbody td:first-child { border-left: none; }
+      .datagrid table tbody tr:last-child td { border-bottom: none; }
+      .datagrid table tbody tr:nth-child(even) td {background:#991821; color: #F7CDCD;}
+      .datagrid table tfoot td div { border-top: 1px solid #991821;background: #F7CDCD;}
+      .datagrid table tfoot td { padding: 0; font-size: 12px }
+      .datagrid table tfoot td div{ padding: 2px; }
+      .datagrid table tfoot td ul { margin: 0; padding:0; list-style: none; text-align: right; }
+      .datagrid table tfoot  li { display: inline; }
+      .datagrid table tfoot li a {
+        text-decoration: none; display: inline-block;  padding: 2px 8px; margin: 1px;color: #FFFFFF;
+        border: 1px solid #991821;-webkit-border-radius: 3px; -moz-border-radius: 3px;
+        border-radius: 3px;
+        background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #991821), color-stop(1, #80141C) );
+        background:-moz-linear-gradient( center top, #991821 5%, #80141C 100% );
+        filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#991821', endColorstr='#80141C');
+        background-color:#991821; }
+      .datagrid table tfoot ul.active, .datagrid table tfoot ul a:hover {
+        text-decoration: none;border-color: #80141C; color: #FFFFFF; background: none; background-color:#991821;
+        }
+        div.dhtmlx_window_active, div.dhx_modal_cover_dv { position: fixed !important; }
+</style>
+<style>
+.datagrid_blue table { border-collapse: collapse; text-align: left; width: 100%; }
+.datagrid_blue {font: normal 12px/150% Arial, Helvetica, sans-serif;
+  background: #fff;
+  overflow: hidden;
+  border: 1px solid #006699;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px; }
+  .datagrid_blue table td, .datagrid_blue table th {
+    padding: 3px 10px; }
+  .datagrid_blue table thead th {
+    background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #006699), color-stop(1, #00557F) );
+    background:-moz-linear-gradient( center top, #006699 5%, #00557F 100% );
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#006699', endColorstr='#00557F');
+    background-color:#006699;
+    color:#FFFFFF;
+    font-size: 21px;
+    font-weight: bold;
+    border-left: 1px solid #0070A8; }
+    .datagrid_blue table thead th:first-child { border: none; }
+    .datagrid_blue table tbody td {
+      color: #000000;
+      border-left: 1px solid #E1EEF4;
+      font-size: 20px;font-weight: normal; }
+    .datagrid_blue table tbody .alt td {
+      background: #E1EEf4; color: #00557F; }
+    .datagrid_blue table tbody td:first-child { border-left: none; }
+    .datagrid_blue table tbody tr:last-child td { border-bottom: none; }
+    .datagrid_blue table tfoot td div { border-top: 1px solid #006699;background: #E1EEf4;}
+    .datagrid_blue table tfoot td { padding: 0; font-size: 12px }
+    .datagrid_blue table tfoot td div{ padding: 2px; }
+    .datagrid_blue table tfoot td ul { margin: 0; padding:0; list-style: none; text-align: right; }
+    .datagrid_blue table tfoot  li { display: inline; }
+    .datagrid_blue table tfoot li a {
+      text-decoration: none; display: inline-block;
+      padding: 2px 8px; margin: 1px;
+      color: #FFFFFF;border: 1px solid #006699;
+      -webkit-border-radius: 3px;
+      -moz-border-radius: 3px; border-radius: 3px;
+      background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #006699), color-stop(1, #00557F) );
+      background:-moz-linear-gradient( center top, #006699 5%, #00557F 100% );
+      filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#006699', endColorstr='#00557F');
+      background-color:#006699; }
+      .datagrid_blue table tfoot ul.active,
+      .datagrid_blue table tfoot ul a:hover {
+        text-decoration: none;border-color: #00557F; color: #FFFFFF;
+        background: none; background-color:#006699;}
+        div.dhtmlx_window_active, div.dhx_modal_cover_dv { position: fixed !important; }
+</style>
 <head>
     <meta charset="utf-8">
-    <title>Eduardo Benmergui</title>
-    <style>
-    {background-image: url("/home/eduardo/node/propiedades/views/layouts/display_803135.jpg");;width:150px;height:200px;
-    background-repeat: no-repeat;
-
-  }
-
-
-
-    </style>
+    <title>Argprop</title>
 
 </head>
 
-<body>
-  <div class='header' style='height:90px;background:rgba(0,0,0,0.6)' >
+<body style="margin:0px;">
+  <div style="width=100%;height:110px;background-color:#006699;">
+    <!-- <a style="font-size:20px;color:#000000;float: right; ;padding:8px;"  href="/logout"> Logout</a> -->
   </div>
-    <div class='marco'>
+
+    <div >
       {{{body}}}
     </div>
   </div>

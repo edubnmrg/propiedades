@@ -17,17 +17,20 @@ var connection = mysql.createConnection({
 
 
 app.use(cookieParser());
+app.use(express.static('./imagenes'));
 app.engine('handlebars', exphbs({defaultLayout: 'main'}));
 app.set('view engine', 'handlebars');
+
+
 
 var basicAuth = require('basic-auth');
 VALID_USER = "AGENTE"
 VALID_PASSWORD = "ORION"
-
+var usuario
 var auth = function (req, res, next) {
   function unauthorized(res) {
     res.set('WWW-Authenticate', 'Basic realm=Authorization Required');
-    return res.send(401);
+    return res.sendStatus(401);
   };
 
   var user = basicAuth(req);
@@ -35,6 +38,9 @@ var auth = function (req, res, next) {
   if (!user || !user.name || !user.pass) {
     return unauthorized(res);
   };
+  // console.log("medio "+user.name);
+  var rows=[];
+
 
   if (user.name === VALID_USER && user.pass === VALID_PASSWORD) {
     return next();
@@ -42,19 +48,20 @@ var auth = function (req, res, next) {
     return unauthorized(res);
   };
 };
-connection.connect(function(err){
-if(!err) {
-    console.log("Conectado a Base de Datos ... nn");
-} else {
-    console.log("Error conectando a Base de Datos ... nn");
-}
-});
+
+// connection.connect(function(err){
+// if(!err) {
+//     console.log("Conectado a Base de Datos ... nn");
+// } else {
+//     console.log("Error conectando a Base de Datos ... nn");
+// }
+// });
 
 app.get(`/`,auth,function(req,res){
 
   res.cookie("agente", true);
   database.read(function(visitas){
-    console.log("carga "+visitas.length);
+    //console.log("carga "+visitas.length);
     res.render('props_form',{visitas});
   })
 
@@ -73,10 +80,10 @@ app.get(`/`,auth,function(req,res){
               //if not record: database.write(record)
               //if not record:
               var found = false;
-              console.log("dimension "+visitas.length);
-              console.log(url);
+              // console.log("dimension "+visitas.length);
+              // console.log(url);
               for (var i = 0; i < visitas.length && !found; i++) {
-                console.log(visitas[i].texto +" "+ url+" "+(visitas[i].texto === url))
+                //console.log(visitas[i].texto +" "+ url+" "+(visitas[i].texto === url))
                 if (visitas[i].texto === url) {
                   visitas[i].numero++
                   found = true;
@@ -84,25 +91,19 @@ app.get(`/`,auth,function(req,res){
               }
               if(!found)  {
                 database.write(url+","+"0"+"\n");
-                var q="insert into consultas(id,url,agente_id,cliente_id,visitas) values(default," + url +",4,1,default"
-                connection.query(q, function(err, rows, fields) {
-                  if (!err)
-                    console.log('Se agrego  ', rows, 'fila(s)');
-                  else
-                    console.log('Error insertando url.');
-                });
+
               }else{
                 if(!agent){
                   fs.unlinkSync('./historial.txt');
                    for (var i = 0, len = visitas.length; i < len; i++) {
                      database.write(visitas[i].texto+","+visitas[i].numero+"\n");
                    };
-                   connection.query("update consultas set visitas=visitas+1 where url='"+url+"'", function(err, rows, fields) {
-                     if (!err)
-                       console.log('Se modifico  ', rows, 'fila(s)');
-                     else
-                       console.log('Error incrementando visitas.');
-                   });
+                  //  connection.query("update consultas set visitas=visitas+1 where url='"+url+"'", function(err, rows, fields) {
+                  //    if (!err)
+                  //      console.log('Se modifico  ', rows, 'fila(s)');
+                  //    else
+                  //      console.log('Error incrementando visitas.');
+                  //  });
                  }
 
               }
@@ -111,6 +112,7 @@ app.get(`/`,auth,function(req,res){
 
               var precio, descripcion, titulo, datos;
               titulo = $("h1").text()
+
               precio =$(".venta").text()
               descripcion =  $("#id-descipcion-aviso").text().trim()
               datos=[];
@@ -122,6 +124,17 @@ app.get(`/`,auth,function(req,res){
               $(".rsMainSlideImage").each(function(i, elem){
                   imagenes_arr.push({imagen:$(elem).attr("href")})
               })
+              // console.log("propiedad cargada " + propiedad_cargada(connection,titulo));
+              // if(propiedad_cargada(connection,titulo)){
+              //   console.log("esta en base");
+              // }else{
+              //   if(cargar_propiedad(connection,titulo,descripcion,precio,url)){
+              //     console.log("propiedad cargada");
+              //     console.log ("id= "+prop_id(con,titulo));
+              //   }else{
+              //     console.log("no se cargo");
+              //   }
+              // }
           };
           //console.error(titulo, precio, descripcion, datos, imagenes_arr)
 
@@ -132,14 +145,15 @@ app.get(`/`,auth,function(req,res){
   // app.post('/boton', function(sReq, sRes){
   //   console.log(sReq.query.cliente);
   // });
-  app.get(`/clientes`,function(req,res){
-    connection.query('SELECT * from clientes', function(err, rows, fields) {
-    if (!err)
-      res.render('clientes',{rows});
-    else
-      console.log('Error while performing Query.');
-    });
-  });
-app.listen(`8081`);
+  // app.get(`/clientes`,function(req,res){
+  //   connection.query('SELECT * from clientes', function(err, rows, fields) {
+  //   if (!err)
+  //     res.render('clientes',{rows});
+  //   else
+  //     console.log('Error while performing Query.');
+  //   });
+  // });
+
+app.listen(process.argv[2]);
 console.log(`Server is up and running`);
 exports=module.exports=app;

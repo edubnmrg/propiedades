@@ -1,8 +1,12 @@
 
+<div style="background-image:url('1555808164.gif');-webkit-background-size: cover;width:150px;height:200px;border:1px solid black;">
+
+</div>
 
 <h1><font size="20">Clientes</font></h1>
-<div class='marco'>
-  <table border="0">
+<!-- <div class='marco'>
+
+  <table border="1">
     <tr>
       <th><font size="20">Nombre</font></th>
 
@@ -21,4 +25,43 @@
 		</tr>
     {{/each}}
   </table>
+</div> -->
+  <div class='datagrid'>
+    <table>
+				<thead>
+					<tr>
+						<th><font size="20">Nombre</th>
+					</tr>
+				</thead>
+
+				<tbody>
+          {{#each rows}}
+          <tr class="alt">
+
+            <td>
+              <p > <font size="16">{{this.nombre}}</font></p>
+            </td>
+          <td>
+
+          </td>
+          </tr>
+          {{/each}}
+					<!-- <tr>
+						<td>Row 1</td><td>data 1</td><td>data 2</td><td>data 3</td>
+					</tr>
+					<tr class="alt">
+						<td>Row 1</td><td>data 1</td><td>data 2</td><td>data 3</td>
+					</tr>
+					<tr>
+						<td>Row 1</td><td>data 1</td><td>data 2</td><td>data 3</td>
+					</tr>
+					<tr class="alt">
+						<td>Row 1</td><td>data 1</td><td>data 2</td><td>data 3</td>
+					</tr>
+					<tr>
+						<td>Row 1</td><td>data 1</td><td>data 2</td><td>data 3</td>
+					</tr> -->
+				</tbody>
+			</table>
+
 </div>
